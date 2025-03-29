@@ -37,3 +37,15 @@ def show_parsed_data(url, parsed_data):
     for review in reviews:
         print(f"Review: {review['text']}\n")
         print('-' * 50)
+
+
+def main():
+    urls = prompt_user_for_urls()
+
+    for url in urls:
+        parsed_data = parse_data(url)
+        show_parsed_data(url, parsed_data)
+
+
+if __name__ == "__main__":
+    main()
