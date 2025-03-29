@@ -30,3 +30,27 @@ def parse_company_info(soup):
         'link_notUnderlined__y4Qsc.styles_underline__j1_xR')
 
     return name, rating, category, contact
+
+
+def parse_reviews_and_details(soup):
+    num_of_reviews = 20
+    review_elements = soup.find_all('p', class_='typography_body-l__v5JLj typography_appearance-default__t8iAq')
+
+    reviews = []
+    for review in review_elements:
+        review_text = review.get_text(strip=True).replace("See more", "...").replace("\n", " ").replace("\r", "")
+
+        if review_text.lower().endswith("total"):
+            continue
+
+        reviews.append({'text': review_text})
+
+    description = reviews[4] if len(reviews) > 4 else None
+    address = reviews[5] if len(reviews) > 5 else None
+
+    if description:
+        reviews.remove(description)
+    if address:
+        reviews.remove(address)
+
+    return description, address, reviews[:num_of_reviews]
