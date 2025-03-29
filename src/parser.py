@@ -54,3 +54,14 @@ def parse_reviews_and_details(soup):
         reviews.remove(address)
 
     return description, address, reviews[:num_of_reviews]
+
+
+def parse_data(url):
+    soup = get_page_soup(url)
+    if not soup:
+        return None
+
+    name, rating, category, contact = parse_company_info(soup)
+    description, address, reviews = parse_reviews_and_details(soup)
+
+    return name, rating, category, contact, description, address, reviews
