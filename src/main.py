@@ -44,6 +44,9 @@ def main():
 
     for url in urls:
         parsed_data = parse_data(url)
+        if parsed_data is None:
+            print(f"Skipping {url} due to an error during parsing.\n")
+            continue
         show_parsed_data(url, parsed_data)
 
 
